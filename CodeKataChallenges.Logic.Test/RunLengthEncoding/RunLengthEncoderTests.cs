@@ -1,5 +1,6 @@
 ﻿using CodeKataChallenges.Logic.RunLengthEncoding;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using System.Runtime.CompilerServices;
 
 namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
@@ -30,7 +31,7 @@ namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
             output.Should().Be(expectedOutput);
         }
 
-        [Fact]
+        [Fact (Skip = "Not needed as instructions assume correct input format")]
         public void Decode_should_throw_exception_on_invalid_input()
         {
             var encoder = new RunLengthEncoder();
@@ -70,7 +71,9 @@ namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
               ("AAABBBCCC", "3A3B3C"),
               ("ABCDEFG", "1A1B1C1D1E1F1G"),
               ("AaBbCc", "1A1a1B1b1C1c"),
-              ("AAddDDDccc", "2A2d3D3c")
+              ("AAddDDDccc", "2A2d3D3c"),
+              ("AAAAAAAAAAAAAAA", "15A"),
+              ("AAABBBBBBBBBBCCCAAAAAAAAAAAA", "3A10B3C12A")
         ];
 
         #endregion

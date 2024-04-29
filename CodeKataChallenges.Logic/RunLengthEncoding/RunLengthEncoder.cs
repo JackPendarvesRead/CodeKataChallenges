@@ -12,24 +12,17 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
 
             var sb = new StringBuilder();
 
-            char[] inputArray = input.ToCharArray();
-
-            if (inputArray.Length % 2 != 0)
-            {
-                throw new InvalidOperationException("input string is in the wrong format");
-            }
-
             int count = 0;
 
-            for (int i = 0; i < input.Length; i++)
+            foreach(char currentChar in input)
             {
-                if (i % 2 == 0)
+                if (char.IsDigit(currentChar))
                 {
-                    count = int.Parse(inputArray[i].ToString());
+                    count = ParseDigitChar(count, currentChar);
                 }
                 else
                 {
-                    sb.Append(new string(inputArray[i], count));
+                    sb.Append(new string(currentChar, count));
                     count = 0;
                 }
             }
@@ -44,8 +37,8 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
 
             var sb = new StringBuilder();
             int currentCount = 0;
-
             char currentCharacter = input[0];
+
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -68,6 +61,20 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
             }
 
             return sb.ToString();
+        }
+        private static int ParseDigitChar(int count, char currentChar)
+        {
+            int value = currentChar - '0';
+            if (count == 0)
+            {
+                count = value;
+            }
+            else
+            {
+                count = count * 10 + value;
+            }
+
+            return count;
         }
     }
 }
