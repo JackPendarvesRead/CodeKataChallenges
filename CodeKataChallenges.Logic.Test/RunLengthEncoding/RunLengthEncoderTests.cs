@@ -1,15 +1,15 @@
 ﻿using CodeKataChallenges.Logic.RunLengthEncoding;
 using FluentAssertions;
+using System.Runtime.CompilerServices;
 
 namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
 {
     public class RunLengthEncoderTests
-    {
+    {     
+        #region Tests
+
         [Theory]
-        [InlineData("AAABBBCCC", "3A3B3C")]
-        [InlineData("ABCDEFG", "1A1B1C1D1E1F1G")]
-        [InlineData("AaBbCc", "1A1a1B1b1C1c")]
-        [InlineData("AAddDDDccc", "2A2d3D3c")]
+        [MemberData(nameof(GetEncodeData))]
         public void Encode_should_return_expected_output(string input, string expectedOutput)
         {
             var encoder = new RunLengthEncoder();
@@ -20,10 +20,7 @@ namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
         }
 
         [Theory]
-        [InlineData("3A3B3C", "AAABBBCCC")]
-        [InlineData("1A1B1C1D1E1F1G", "ABCDEFG")]
-        [InlineData("1A1a1B1b1C1c", "AaBbCc")]
-        [InlineData("2A2d3D3c", "AAddDDDccc")]
+        [MemberData(nameof(GetDecodeData))]
         public void Decode_should_return_expected_output(string input, string expectedOutput)
         {
             var encoder = new RunLengthEncoder();
@@ -42,5 +39,40 @@ namespace CodeKataChallenges.Logic.Test.RunLengthEncoding
 
             action.Should().Throw<InvalidOperationException>();
         }
+
+        #endregion
+
+        #region Member Data
+
+        public static IEnumerable<object[]> GetEncodeData()
+        {
+            var list = new List<object[]>();
+            foreach (var (Decoded, Encoded) in TestCasePairs)
+            {
+                list.Add(new object[] { Decoded, Encoded });
+            }
+            return list;            
+        }
+
+        public static IEnumerable<object[]> GetDecodeData()
+        {
+            var list = new List<object[]>();
+            foreach (var (Decoded, Encoded) in TestCasePairs)
+            {
+                list.Add(new object[] { Encoded, Decoded});
+            }
+            return list;
+        }
+
+        private static readonly IEnumerable<(string Decoded, string Encoded)> TestCasePairs =
+        [
+              ("AAABBBCCC", "3A3B3C"),
+              ("AAABBBCCC", "3A3B3C"),
+              ("ABCDEFG", "1A1B1C1D1E1F1G"),
+              ("AaBbCc", "1A1a1B1b1C1c"),
+              ("AAddDDDccc", "2A2d3D3c")
+        ];
+
+        #endregion
     }
 }
