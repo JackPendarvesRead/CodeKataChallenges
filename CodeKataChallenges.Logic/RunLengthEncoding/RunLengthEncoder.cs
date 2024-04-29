@@ -7,6 +7,9 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
     {
         public string Decode(string input)
         {
+            if (string.IsNullOrWhiteSpace(input)) 
+                return string.Empty;
+
             var sb = new StringBuilder();
 
             char[] inputArray = input.ToCharArray();
@@ -36,15 +39,17 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
 
         public string Encode(string input)
         {
+            if (string.IsNullOrWhiteSpace(input)) 
+                return string.Empty;
+
             var sb = new StringBuilder();
             int currentCount = 0;
 
-            char[] inputArray = input.ToCharArray();
             char currentCharacter = input[0];
 
-            for (int i = 0; i < inputArray.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
-                char next = inputArray[i];
+                char next = input[i];
                 if (currentCharacter == next)
                 {
                     currentCount++;
