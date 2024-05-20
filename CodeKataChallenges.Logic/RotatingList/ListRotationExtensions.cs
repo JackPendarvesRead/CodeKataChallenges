@@ -22,10 +22,23 @@ namespace CodeKataChallenges.Logic.RotatingList
             if (k == 0)
                 return input;
 
+            if((double)input.Count / 2 == Math.Abs(k))
+            {
+                SpecialCaseForSymmetry(input, k);
+            }
+            else
+            {
+                MainMethod(input, k);
+            }
+            return input;
+        }
+
+        private static void MainMethod<TItem>(IList<TItem> input, int k)
+        {
             int run = 0;
             int index = 0;
             TItem current = input[0];
-            while(run < input.Count)
+            while (run < input.Count)
             {
                 int replacementIndex = GetReplacementIndex(index, k, input.Count);
                 TItem itemToReplace = input[replacementIndex];
@@ -35,7 +48,18 @@ namespace CodeKataChallenges.Logic.RotatingList
                 run++;
                 index = replacementIndex;
             }
-            return input;
+        }
+
+        private static void SpecialCaseForSymmetry<TItem>(IList<TItem> input, int k)
+        {
+            for(int i = 0; i < Math.Abs(k); i++)
+            {
+                var valueToReplace = input[i];
+                int replacementIndex = k > 0 ? i + k : input.Count + k + i;
+                var replacementValue = input[replacementIndex];
+                input[i] = replacementValue;
+                input[replacementIndex] = valueToReplace;
+            }
         }
 
         /// <summary>
@@ -53,6 +77,10 @@ namespace CodeKataChallenges.Logic.RotatingList
             if(replacementIndex < 0)
             {
                 replacementIndex += listLength;
+            }
+            else if(replacementIndex > listLength)
+            {
+                replacementIndex -= listLength;
             }
 
             return replacementIndex;
