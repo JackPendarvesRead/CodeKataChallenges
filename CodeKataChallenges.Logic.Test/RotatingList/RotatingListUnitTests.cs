@@ -51,9 +51,9 @@ namespace CodeKataChallenges.Logic.Test.RotatingList
         [Fact]
         public void Test_for_ank2()
         {
-            const int k = 2;
-            var input = new[] { 1, 2, 3, 4 };
-            var expected = new[] { 3, 4, 1, 2 };
+            const int k = -2;
+            var input = new[] { 1, 2, 3, 4, 5, 6 };
+            var expected = new[] { 5, 6, 1, 2, 3, 4 };
             var result = input.RotateList(k);
             result.Should().ContainInConsecutiveOrder(expected);
         }
