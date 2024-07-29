@@ -11,7 +11,7 @@ namespace CodeKataChallenges.Logic.Palimdrome
         public bool CheckPalimdrome(string input)
         {
             int max = (int)Math.Floor((double)input.Length / 2.0);
-            for(int i = 0; i < max; i++)
+            for(int i = 0; i <= max; i++)
             {
                 bool isEqual = string.Equals(input.Substring(i, 1), input.Substring(input.Length - i - 1, 1), StringComparison.OrdinalIgnoreCase);
 
