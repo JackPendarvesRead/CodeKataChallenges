@@ -42,13 +42,17 @@ namespace CodeKataChallenges.Logic.SearchWithoutMult
 
         private static int GetMidpointIndex(int start, int end)
         {
-            int i = 0;
-
             int diff = end - start;
+            if(diff == 0)
+            {
+                return start;
+            }
 
+            int i = 1;
             while (i + i < diff)
             {
-                i++;
+                // This will not find perfect mid-point but should be faster for large ranges
+                i += i;
             }
 
             return start + i;

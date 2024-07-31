@@ -64,5 +64,21 @@ namespace CodeKataChallenges.Logic.Test.SearchWithoutMult
             var input = new List<int>() { 10, 15, 20, 25, 30, 35 };
             input.ContainsWithoutMult(n).Should().BeFalse();
         }
+
+        [Fact]
+        public void Should_return_true_if_long_list__contains_n()
+        {
+            var list = Enumerable.Range(1, 1000).ToList();
+            int n = 998;
+            list.ContainsWithoutMult(n).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Should_return_false_if_long_list__contains_n()
+        {
+            var list = Enumerable.Range(1, 1000).Where(n => n % 2 == 0).ToList();
+            int n = 999;
+            list.ContainsWithoutMult(n).Should().BeFalse();
+        }
     }
 }
