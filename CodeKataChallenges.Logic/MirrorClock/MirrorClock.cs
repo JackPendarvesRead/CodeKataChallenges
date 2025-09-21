@@ -4,8 +4,6 @@ namespace CodeKataChallenges.Logic.MirrorClock
 {
     public class MirrorClock
     {
-        private static Regex inputValidationRegex = new Regex(@"^(0[1-9]|1[0-2]):([0-5][0-9])$");
-
         public string WhatIsTheTime(string timeInMirror)
         {
             if(string.IsNullOrWhiteSpace(timeInMirror))
@@ -13,7 +11,7 @@ namespace CodeKataChallenges.Logic.MirrorClock
                 throw new ArgumentException("Input time cannot be null or empty");
             }
 
-            if (!inputValidationRegex.IsMatch(timeInMirror))
+            if (!MirrorClockRegex.InputValidationRegex().IsMatch(timeInMirror))
             {
                 throw new ArgumentException("Input time is not in the correct format (hh:mm) where hh is between 01-12 and mm is between 00-59");
             }
