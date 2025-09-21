@@ -65,6 +65,7 @@ namespace CodeKataChallenges.Logic.RunLengthEncoding
         private static int ParseDigitChar(int count, char currentChar)
         {
             int value = currentChar - '0';
+
             if (count == 0)
             {
                 count = value;
